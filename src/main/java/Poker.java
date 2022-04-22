@@ -8,6 +8,11 @@ public class Poker {
     private static final Integer KING = 13;
     private static final Integer ACE = 14;
 
+    private static final String BLACK_WIN = "Black wins. ";
+    private static final String WHITE_WIN = "White wins. ";
+
+    private static final String HIGH_CARD = "high card: ";
+
 
     public String compareSimpleNumbers(int black, int white) {
         if(black > white) {
@@ -76,4 +81,28 @@ public class Poker {
         return highCard;
     }
 
+    public String decideWinner(String userInputString) {
+        System.out.println(userInputString);
+
+        String[] userInputStringArray = userInputString.split("  ");
+        String black = userInputStringArray[0].substring(7);
+        String white = userInputStringArray[1].substring(7);
+
+        ArrayList<Card> cardListBlack = changeCardsInputStringToCardClassArrayList(black);
+        ArrayList<Card> cardListWhite = changeCardsInputStringToCardClassArrayList(white);
+
+        Card highCardBlack = findHighCard(cardListBlack);
+        Card highCardWhite = findHighCard(cardListWhite);
+
+        String output = "";
+
+        if (highCardBlack.getValue() > highCardWhite.getValue()) {
+            output = BLACK_WIN + "- with " + HIGH_CARD + highCardBlack.getCardValueToString();
+        } else if (highCardBlack.getValue() < highCardWhite.getValue()) {
+            output = WHITE_WIN + "- with " + HIGH_CARD + highCardWhite.getCardValueToString();
+        }
+
+        System.out.println(output);
+        return output;
+    }
 }

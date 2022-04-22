@@ -26,4 +26,17 @@ public class Card {
         this.suit = suit;
     }
 
+    public String getCardValueToString() {
+        if(this.getValue() == 11) {
+            return "Jack";
+        } else if (this.getValue() == 12){
+            return "Queen";
+        } else if (this.getValue() == 13) {
+            return "King";
+        } else if (this.getValue() == 14) {
+            return "Ace";
+        }
+        return String.valueOf(this.getValue());
+    }
+
 }

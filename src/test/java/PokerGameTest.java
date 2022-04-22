@@ -102,6 +102,18 @@ public class PokerGameTest {
 
         Assertions.assertEquals(true, result);
     }
+
+    @Test
+    public void decideWinnerTest() {
+        Poker poker = new Poker();
+        String userInputString = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
+
+        String expected = "White wins. - with high card: Ace";
+        String actual = poker.decideWinner(userInputString);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
 //    @Test
 //    public void findHighCardTest() {
 //        Poker poker = new Poker();
