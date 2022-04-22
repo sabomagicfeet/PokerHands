@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Poker {
@@ -36,6 +37,29 @@ public class Poker {
 
         return cardHashMap;
 
+    }
+
+    // change J,Q,K,A to integer values
+    // put each card to Card Class instance
+    // add each Card instance to ArrayList
+    public ArrayList<Card> changeCardsInputStringToCardClassArrayList(String fiveCards) {
+        ArrayList<Card> cardList = new ArrayList<>();
+
+        for( String eachCard : fiveCards.split(" ") ) {
+            if(eachCard.charAt(0) == 'J') {
+                cardList.add(new Card (JACK, eachCard.charAt(1)) );
+            } else if(eachCard.charAt(0) == 'Q') {
+                cardList.add(new Card (QUEEN, eachCard.charAt(1)) );
+            } else if(eachCard.charAt(0) == 'K') {
+                cardList.add(new Card (KING, eachCard.charAt(1)) );
+            } else if(eachCard.charAt(0) == 'A') {
+                cardList.add(new Card (ACE, eachCard.charAt(1)) );
+            } else {
+                cardList.add( new Card(Character.getNumericValue(eachCard.charAt(0)), eachCard.charAt(1) ) );
+            }
+        }
+
+        return cardList;
     }
 
 //    public String findHighCard(String fiveCards) {

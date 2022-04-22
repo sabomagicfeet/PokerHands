@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PokerGameTest {
@@ -48,6 +49,24 @@ public class PokerGameTest {
         Assertions.assertEquals(expectedHashMap,actualHashMap);
     }
 
+    @Test
+    public void changeCardsInputStringToCardClassArrayListTest() {
+        Poker poker = new Poker();
+        ArrayList<Card> expectedCardList = new ArrayList();
+        expectedCardList.add(new Card(2, 'H'));
+        expectedCardList.add(new Card(3, 'D'));
+        expectedCardList.add(new Card(5, 'S'));
+        expectedCardList.add(new Card(9, 'C'));
+        expectedCardList.add(new Card(4, 'D'));
+
+        ArrayList<Card> actualCardList = poker.changeCardsInputStringToCardClassArrayList("2H 3D 5S 9C 4D");
+
+        for(int i = 0; i < expectedCardList.size(); i++) {
+            Assertions.assertEquals(true, expectedCardList.get(i).getValue() == actualCardList.get(i).getValue() );
+            Assertions.assertEquals(true, expectedCardList.get(i).getSuit() == actualCardList.get(i).getSuit());
+        }
+
+    }
 //    @Test
 //    public void findHighCardTest() {
 //        Poker poker = new Poker();
