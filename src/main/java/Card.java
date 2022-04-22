@@ -2,6 +2,9 @@ public class Card {
     private int value;
     private char suit;
 
+    public Card() {
+    }
+
     public Card(int value, char suit) {
         this.value = value;
         this.suit = suit;
@@ -22,4 +25,5 @@ public class Card {
     public void setSuit(char suit) {
         this.suit = suit;
     }
+
 }

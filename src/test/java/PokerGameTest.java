@@ -67,6 +67,41 @@ public class PokerGameTest {
         }
 
     }
+
+    @Test
+    public void findHighCardTest() {
+        Poker poker = new Poker();
+
+        Card expectedHighCard = new Card(9, 'C');
+
+        ArrayList<Card> cardList = poker.changeCardsInputStringToCardClassArrayList("2H 3D 5S 9C 4D");
+
+        Card actualHighCard = poker.findHighCard(cardList);
+
+        System.out.println("Found high card : " + actualHighCard.getValue() + actualHighCard.getSuit());
+
+        boolean result = expectedHighCard.getValue() == actualHighCard.getValue();
+
+        Assertions.assertEquals(true, result);
+    }
+
+    @Test
+    public void findHighCardWithJQKATest() {
+        Poker poker = new Poker();
+
+        // The value of Ace = 14
+        Card expectedHighCard = new Card(14, 'D');
+
+        ArrayList<Card> cardList = poker.changeCardsInputStringToCardClassArrayList("2H JD QS KC AD");
+
+        Card actualHighCard = poker.findHighCard(cardList);
+
+        System.out.println("Found high card : " + actualHighCard.getValue() + actualHighCard.getSuit());
+
+        boolean result = expectedHighCard.getValue() == actualHighCard.getValue();
+
+        Assertions.assertEquals(true, result);
+    }
 //    @Test
 //    public void findHighCardTest() {
 //        Poker poker = new Poker();
@@ -80,5 +115,11 @@ public class PokerGameTest {
 //    @Test
 //    public void compareStringTest() {
 //
+//        String a = "11S";
+//        String b = "3D";
+//
+//        if(a > b) {
+//
+//        }
 //    }
 }

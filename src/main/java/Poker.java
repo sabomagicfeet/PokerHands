@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Poker {
@@ -62,10 +63,17 @@ public class Poker {
         return cardList;
     }
 
-//    public String findHighCard(String fiveCards) {
-//        HashMap<Integer, String> cardsHashMap = putFiveCardsIntoHashMap(fiveCards);
-//        List<>
-//
-//        return "";
-//    }
+    public Card findHighCard(ArrayList<Card> cardList) {
+        Card highCard = new Card();
+        highCard.setValue(0);
+
+        for(Card card : cardList) {
+            if(highCard.getValue() < card.getValue()) {
+                highCard = card;
+            }
+        }
+
+        return highCard;
+    }
+
 }
