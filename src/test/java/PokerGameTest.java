@@ -59,7 +59,7 @@ public class PokerGameTest {
         expectedCardList.add(new Card(9, 'C'));
         expectedCardList.add(new Card(4, 'D'));
 
-        ArrayList<Card> actualCardList = poker.changeCardsInputStringToCardClassArrayList("2H 3D 5S 9C 4D");
+        ArrayList<Card> actualCardList = poker.changeCardsInputStringToArrayList("2H 3D 5S 9C 4D");
 
         for(int i = 0; i < expectedCardList.size(); i++) {
             Assertions.assertEquals(true, expectedCardList.get(i).getValue() == actualCardList.get(i).getValue() );
@@ -74,7 +74,7 @@ public class PokerGameTest {
 
         Card expectedHighCard = new Card(9, 'C');
 
-        ArrayList<Card> cardList = poker.changeCardsInputStringToCardClassArrayList("2H 3D 5S 9C 4D");
+        ArrayList<Card> cardList = poker.changeCardsInputStringToArrayList("2H 3D 5S 9C 4D");
 
         Card actualHighCard = poker.findHighCard(cardList);
 
@@ -92,7 +92,7 @@ public class PokerGameTest {
         // The value of Ace = 14
         Card expectedHighCard = new Card(14, 'D');
 
-        ArrayList<Card> cardList = poker.changeCardsInputStringToCardClassArrayList("2H JD QS KC AD");
+        ArrayList<Card> cardList = poker.changeCardsInputStringToArrayList("2H JD QS KC AD");
 
         Card actualHighCard = poker.findHighCard(cardList);
 
@@ -109,6 +109,28 @@ public class PokerGameTest {
         String userInputString = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
 
         String expected = "White wins. - with high card: Ace";
+        String actual = poker.decideWinner(userInputString);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void decideWinnerWhenTheSameHighCardTest() {
+        Poker poker = new Poker();
+        String userInputString = "Black: 2H 3D 5S 9C AD  White: 2C 3H 4S 8C AH";
+
+        String expected = "Black wins. - with high card: 9";
+        String actual = poker.decideWinner(userInputString);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void decideWinnerWhenTheSameHighCardTest2() {
+        Poker poker = new Poker();
+        String userInputString = "Black: 2H 4D KS 9C AD  White: 2C 5H KS 9C AH";
+
+        String expected = "White wins. - with high card: 5";
         String actual = poker.decideWinner(userInputString);
 
         Assertions.assertEquals(expected, actual);

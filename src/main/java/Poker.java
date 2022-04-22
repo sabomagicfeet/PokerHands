@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class Poker {
@@ -12,6 +11,11 @@ public class Poker {
     private static final String WHITE_WIN = "White wins. ";
 
     private static final String HIGH_CARD = "high card: ";
+
+    private String output = "";
+
+    private Card highCardBlack = new Card();
+    private Card highCardWhite = new Card();
 
 
     public String compareSimpleNumbers(int black, int white) {
@@ -48,7 +52,7 @@ public class Poker {
     // change J,Q,K,A to integer values
     // put each card to Card Class instance
     // add each Card instance to ArrayList
-    public ArrayList<Card> changeCardsInputStringToCardClassArrayList(String fiveCards) {
+    public ArrayList<Card> changeCardsInputStringToArrayList(String fiveCards) {
         ArrayList<Card> cardList = new ArrayList<>();
 
         for( String eachCard : fiveCards.split(" ") ) {
@@ -81,28 +85,54 @@ public class Poker {
         return highCard;
     }
 
-    public String decideWinner(String userInputString) {
-        System.out.println(userInputString);
-
+    public String getBlackCardInputString(String userInputString) {
         String[] userInputStringArray = userInputString.split("  ");
         String black = userInputStringArray[0].substring(7);
+
+        return black;
+    }
+
+    public String getWhiteCardInputString(String userInputString) {
+        String[] userInputStringArray = userInputString.split("  ");
         String white = userInputStringArray[1].substring(7);
 
-        ArrayList<Card> cardListBlack = changeCardsInputStringToCardClassArrayList(black);
-        ArrayList<Card> cardListWhite = changeCardsInputStringToCardClassArrayList(white);
-
-        Card highCardBlack = findHighCard(cardListBlack);
-        Card highCardWhite = findHighCard(cardListWhite);
-
-        String output = "";
-
-        if (highCardBlack.getValue() > highCardWhite.getValue()) {
-            output = BLACK_WIN + "- with " + HIGH_CARD + highCardBlack.getCardValueToString();
-        } else if (highCardBlack.getValue() < highCardWhite.getValue()) {
-            output = WHITE_WIN + "- with " + HIGH_CARD + highCardWhite.getCardValueToString();
-        }
-
-        System.out.println(output);
-        return output;
+        return white;
     }
+
+    public ArrayList<Card> getBlackCardListFromUserInput(String userInputString) {
+        return changeCardsInputStringToArrayList(getBlackCardInputString(userInputString));
+    }
+
+    public ArrayList<Card> getWhiteCardListFromUserInput(String userInputString) {
+        return changeCardsInputStringToArrayList(getWhiteCardInputString(userInputString));
+    }
+
+    public String decideWinner(String userInputString) {
+        ArrayList<Card> cardListBlack = getBlackCardListFromUserInput(userInputString);
+        ArrayList<Card> cardListWhite = getWhiteCardListFromUserInput(userInputString);
+
+        return decideHighCardWinner(cardListBlack, cardListWhite);
+    }
+
+   public String decideHighCardWinner(ArrayList<Card> cardListBlack, ArrayList<Card> cardListWhite) {
+       highCardBlack = findHighCard(cardListBlack);
+       highCardWhite = findHighCard(cardListWhite);
+
+       if (highCardBlack.getValue() > highCardWhite.getValue()) {
+           output = BLACK_WIN + "- with " + HIGH_CARD + highCardBlack.getCardValueToString();
+       } else if (highCardBlack.getValue() < highCardWhite.getValue()) {
+           output = WHITE_WIN + "- with " + HIGH_CARD + highCardWhite.getCardValueToString();
+       } else { // if the high card of both have the same value, ranked by the next highest, and so on.
+           while(!cardListBlack.isEmpty() && output == "") {
+               cardListBlack.remove(highCardBlack);
+               cardListWhite.remove(highCardWhite);
+
+               output = decideHighCardWinner(cardListBlack, cardListWhite);
+           }
+       }
+
+       return output;
+   }
+
+
 }
